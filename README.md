@@ -1,2 +1,2 @@
-# DataScience-Tutorials
-Helpful tutorials for data scientists
+# Data Science Tutorials
+This repo contains helpful tutorials for data scientists
