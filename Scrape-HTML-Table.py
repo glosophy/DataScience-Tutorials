@@ -1,8 +1,8 @@
 import pandas as pd
 import re
-import numpy as np
-import matplotlib.pyplot as plt
-from unicodedata import normalize
+desired_width = 320
+pd.set_option('display.width', desired_width)
+
 
 # ERROR: urllib.error.URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed (_ssl.c:833)>
 # Solution if you are on OSX and Python 3.6: https://stackoverflow.com/questions/50236117/scraping-ssl-certificate-verify-failed-error-for-http-en-wikipedia-org
@@ -33,8 +33,23 @@ for i in df['Inflation rate (consumer prices) (%)']:
 df['Inflation rate (consumer prices) (%)'] = infl_rate
 
 
-# set Data column to int. Get rid of 'est.'
-#df['Date of information'] = df['Date of information'].replace({'est.':''}, regex=True).astype('int64')
+# remove letters from the Date of Information column
+years = []
+for i in df['Date of information']:
+    i = re.split(' est.', i)[0]
+    i = re.sub('\D', '', i)
+    years.append(i)
+
+df['Date of information'] = years
+
+
+# print the 10 highest and lowest inflation rates
+df = df.sort_values(by=['Inflation rate (consumer prices) (%)'])
+lowest = df.head(10)
+highest = df.tail(10)
+
+print(lowest)
+print(highest)
 
 
 
