@@ -1,7 +1,6 @@
 import pandas as pd
 import re
-desired_width = 320
-pd.set_option('display.width', desired_width)
+pd.set_option("display.max_columns", 3)
 
 
 # ERROR: urllib.error.URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed (_ssl.c:833)>
@@ -10,12 +9,16 @@ inflation_tables = pd.read_html('https://en.wikipedia.org/wiki/List_of_countries
 
 print(f'Total tables: {len(inflation_tables)}')
 
-# Preview of table to scrape
-# print(inflation_tables[2])
+# Preview of tables to scrape
+for i in range(len(inflation_tables)):
+  print(inflation_tables[i].head())
 
 # create df with the selected table
 df = inflation_tables[2]
 print(df.head())
+
+# check df shape
+print(df.shape)
 
 # check df types
 print(df.info())
@@ -50,6 +53,3 @@ highest = df.tail(10)
 
 print(lowest)
 print(highest)
-
-
-
